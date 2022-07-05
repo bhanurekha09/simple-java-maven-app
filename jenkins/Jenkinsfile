@@ -6,11 +6,14 @@ pipeline {
         }
     }
     stages {
-        stage('Build') {
+        stage ('Scan and Build Jar File') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
+               withSonarQubeEnv('sonar-server') {
+                sh 'mvn clean package sonar:sonar'
+                }
             }
         }
+        
         stage('Test') {
             steps {
                 sh 'mvn test'
@@ -22,14 +25,7 @@ pipeline {
             }
         }
         
-        stage ('Scan and Build Jar File') {
-            steps {
-               withSonarQubeEnv('sonar-server') {
-                sh 'mvn clean package sonar:sonar'
-                }
-            }
-        }
-
+        
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
