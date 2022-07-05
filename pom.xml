@@ -17,12 +17,6 @@
   </dependencies>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <sonar.projectName>jenkins-shared-library</sonar.projectName>
-    <sonar.projectKey>jenkins-shared-library</sonar.projectKey>
-    <sonar.sources>vars</sonar.sources>
-    <sonar.tests>test</sonar.test>
-    <sonar.groovy.jacoco.reportPath>target/jacoco.exec</sonar.groovy.jacoco.reportPath>
-</properties>
   </properties>
   <build>
     <pluginManagement>
