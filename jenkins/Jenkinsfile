@@ -12,8 +12,8 @@ pipeline {
         stage('Build and test for deployment') {
             steps {
                 withSonarQubeEnv(installationName: 'sonar-server', credentialsId: 'token') {
-                sh 'mvn -B -DskipTests clean package'
-                sh 'mvn test'
+                sh 'mvn -B -DskipTests clean package sonar:sonar'
+                
                 echo "build and test"
             }
         }
