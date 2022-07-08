@@ -9,6 +9,11 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
+        stage ('Build') {
+         steps {
+              sh 'mvn clean install -f MyWebApp/pom.xml'
+            }
+        }
         stage('Build and test for deployment') {
             steps {
                 withSonarQubeEnv(installationName: 'sonar-server', credentialsId: 'token') {
