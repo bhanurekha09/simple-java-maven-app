@@ -9,7 +9,7 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
-        stage('Build') {
+        stage('Build and test for deployment') {
             steps {
                 withSonarQubeEnv(installationName: 'sonar-server', credentialsId: 'token') {
                 sh 'mvn -B -DskipTests clean package'
@@ -19,7 +19,12 @@ pipeline {
         }
              
       }
-        stage('Deliver') { 
+        stage("Quality gate with test-way condirion") {
+            steps {
+                waitForQualityGate abortPipeline: true
+            }
+        }
+        stage('Deliver on success to console') { 
             steps {
                 sh './jenkins/scripts/deliver.sh' 
             }
